@@ -436,7 +436,7 @@ function App() {
               <AboutSection personalInfo={personalInfo} />
 
               {/* Skills Section */}
-              <Section id="skills" className="bg-gray-50 dark:bg-gray-800">
+              <Section id="skills" className="relative z-10 bg-gray-50 dark:bg-gray-800">
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -460,7 +460,7 @@ function App() {
               </Section>
 
               {/* Featured Projects Section */}
-              <Section id="projects" className="bg-white dark:bg-gray-900">
+              <Section id="projects" className="relative z-10 bg-white dark:bg-gray-900">
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}

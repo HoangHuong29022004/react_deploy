@@ -12,7 +12,7 @@ export function ParticlesBackground() {
     <Particles
       id="tsparticles"
       init={particlesInit}
-      className="absolute inset-0 -z-10"
+      className="absolute inset-0 z-0"
       options={{
         background: {
           opacity: 0
@@ -20,13 +20,26 @@ export function ParticlesBackground() {
         fpsLimit: 120,
         particles: {
           color: {
-            value: ["#646cff", "#535bf2", "#8b5cf6"]
+            value: ["#3b82f6", "#06b6d4", "#6366f1"]
+          },
+          links: {
+            color: "#a5b4fc",
+            distance: 150,
+            enable: true,
+            opacity: 0.4,
+            width: 1.2
+          },
+          collisions: {
+            enable: true,
           },
           move: {
-            direction: "top",
+            direction: "none",
             enable: true,
-            random: true,
-            speed: 1,
+            outModes: {
+              default: "bounce"
+            },
+            random: false,
+            speed: 1.2,
             straight: false
           },
           number: {
@@ -34,29 +47,55 @@ export function ParticlesBackground() {
               enable: true,
               area: 800
             },
-            value: 40
+            value: 80
           },
           opacity: {
-            value: 0.3,
-            random: true,
-            anim: {
+            value: 0.7,
+            animation: {
               enable: true,
               speed: 1,
-              opacity_min: 0.1,
-              sync: false
+              minimumValue: 0.3
             }
           },
           shape: {
-            type: "circle"
+            type: ["circle", "triangle"],
           },
           size: {
-            value: { min: 2, max: 6 },
-            random: true,
-            anim: {
+            value: { min: 3, max: 5 },
+            animation: {
               enable: true,
               speed: 2,
-              size_min: 0.1,
-              sync: false
+              minimumValue: 0.5
+            }
+          },
+          twinkle: {
+            particles: {
+              enable: true,
+              frequency: 0.08,
+              opacity: 0.8
+            }
+          }
+        },
+        interactivity: {
+          events: {
+            onHover: {
+              enable: true,
+              mode: "grab"
+            },
+            onClick: {
+              enable: true,
+              mode: "push"
+            }
+          },
+          modes: {
+            grab: {
+              distance: 180,
+              links: {
+                opacity: 0.8
+              }
+            },
+            push: {
+              quantity: 6
             }
           }
         },

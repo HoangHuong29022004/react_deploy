@@ -29,7 +29,7 @@ const projects: Project[] = [
     title: "Website Bán Quần Áo",
     description: "Website thương mại điện tử chuyên về thời trang nữ cao cấp. Tích hợp đầy đủ tính năng quản lý và thanh toán trực tuyến.",
     image: "/projects/fashion.jpg",
-    video: "/videos/fashion-demo.mp4",
+    video: "./videos/fashion-demo.mp4",
     tech: ["PHP", "MySQL", "Bootstrap", "jQuery"],
     features: [
       "Quản lý sản phẩm và danh mục",

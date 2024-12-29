@@ -2,12 +2,14 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Section } from './Section'
 import { ContactModal } from './ContactModal'
+import { VideoModal } from './VideoModal'
 
 interface Project {
   id: number;
   title: string;
   description: string;
   image: string;
+  video?: string;
   tech: string[];
   features: string[];
   demoUrl?: string;
@@ -27,6 +29,7 @@ const projects: Project[] = [
     title: "Website Bán Quần Áo",
     description: "Website thương mại điện tử chuyên về thời trang nữ cao cấp. Tích hợp đầy đủ tính năng quản lý và thanh toán trực tuyến.",
     image: "/projects/fashion.jpg",
+    video: "/videos/fashion-demo.mp4",
     tech: ["PHP", "MySQL", "Bootstrap", "jQuery"],
     features: [
       "Quản lý sản phẩm và danh mục",
@@ -138,78 +141,104 @@ export function ProjectsPage() {
 }
 
 function ProjectCard({ project, onContact }: { project: Project; onContact: () => void }) {
+  const [showVideoModal, setShowVideoModal] = useState(false)
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-    >
-      {/* Project Image */}
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      </div>
-
-      {/* Project Info */}
-      <div className="p-6 space-y-4">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-          {project.title}
-        </h3>
-        
-        <p className="text-gray-600 dark:text-gray-400">
-          {project.description}
-        </p>
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((tech, index) => (
-            <span
-              key={index}
-              className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        whileHover={{ y: -5 }}
+        className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+      >
+        {/* Project Preview */}
+        <div className="relative h-48 overflow-hidden">
+          {project.video ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
             >
-              {tech}
-            </span>
-          ))}
+              <source src={project.video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
 
-        {/* Features */}
-        <div className="space-y-2">
-          <h4 className="font-semibold text-gray-900 dark:text-white">
-            Tính năng chính:
-          </h4>
-          <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 text-sm space-y-1">
-            {project.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
+        {/* Project Info */}
+        <div className="p-6 space-y-4">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            {project.title}
+          </h3>
+          
+          <p className="text-gray-600 dark:text-gray-400">
+            {project.description}
+          </p>
+
+          {/* Technologies */}
+          <div className="flex flex-wrap gap-2">
+            {project.tech.map((tech, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+              >
+                {tech}
+              </span>
             ))}
-          </ul>
-        </div>
+          </div>
 
-        {/* Actions */}
-        <div className="flex gap-4 pt-4">
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#"
-            className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-10"
-          >
-            Xem Demo
-          </motion.a>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onContact}
-            className="flex-1 px-4 py-2 border border-primary text-primary text-center rounded-lg hover:bg-primary hover:text-white transition-colors z-10"
-          >
-            Liên Hệ
-          </motion.button>
+          {/* Features */}
+          <div className="space-y-2">
+            <h4 className="font-semibold text-gray-900 dark:text-white">
+              Tính năng chính:
+            </h4>
+            <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 text-sm space-y-1">
+              {project.features.map((feature, index) => (
+                <li key={index}>{feature}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-4 pt-4">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowVideoModal(true)}
+              className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-10"
+            >
+              Xem Demo
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onContact}
+              className="flex-1 px-4 py-2 border border-primary text-primary text-center rounded-lg hover:bg-primary hover:text-white transition-colors z-10"
+            >
+              Liên Hệ
+            </motion.button>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+
+      {/* Video Modal */}
+      {project.video && (
+        <VideoModal
+          isOpen={showVideoModal}
+          onClose={() => setShowVideoModal(false)}
+          videoUrl={project.video}
+        />
+      )}
+    </>
   )
 } 

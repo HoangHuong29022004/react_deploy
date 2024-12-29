@@ -9,6 +9,7 @@ import { ProjectsPage } from './components/ProjectsPage'
 import { Routes, Route, Link } from 'react-router-dom'
 import { SkillCard } from './components/SkillCard'
 import { ContactModal } from './components/ContactModal'
+import { VideoModal } from './components/VideoModal'
 
 interface Interest {
   icon: string;
@@ -126,6 +127,7 @@ function App() {
       title: "Website Bán Quần Áo",
       description: "Website thương mại điện tử chuyên về thời trang nữ cao cấp. Tích hợp đầy đủ tính năng quản lý và thanh toán trực tuyến.",
       image: "/projects/fashion.jpg",
+      video: "/videos/fashion-demo.mp4",
       tech: ["PHP", "MySQL", "Bootstrap", "jQuery"],
       link: "#",
       github: "#"
@@ -575,126 +577,95 @@ function App() {
 
 function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
   return (
-    <Section id="about" className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="space-y-12"
-        >
-          {/* Tiêu đề */}
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
-              Về Tôi
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              {personalInfo.bio}
-            </p>
-          </div>
+    <Section id="about" className="relative z-10 py-12 sm:py-16 md:py-20 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="space-y-6 sm:space-y-8 md:space-y-12"
+      >
+        {/* Tiêu đề */}
+        <div className="text-center space-y-3 sm:space-y-4 px-3 sm:px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            Về Tôi
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            {personalInfo.bio}
+          </p>
+        </div>
 
+        {/* Info Grid */}
+        <div className="grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-2 max-w-4xl mx-auto px-3 sm:px-4">
           {/* Thông tin cá nhân */}
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg"
-            >
-              <h3 className="text-2xl font-bold text-primary mb-6">Thông Tin Cá Nhân</h3>
-              <div className="space-y-4">
-                <InfoRow icon="🎂" label="Ngày sinh" value={personalInfo.dob} />
-                <InfoRow icon="🏫" label="Trường" value={personalInfo.education} />
-                <InfoRow icon="💼" label="Nơi làm việc" value={personalInfo.workplace} />
-                <InfoRow icon="🏠" label="Quê quán" value={personalInfo.hometown} />
-                <InfoRow icon="📧" label="Email" value={personalInfo.email} />
-                <InfoRow icon="📱" label="Điện thoại" value={personalInfo.phone} />
-              </div>
-            </motion.div>
-
-            {/* Sở thích và đam mê */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg"
-            >
-              <h3 className="text-2xl font-bold text-primary mb-6">Sở Thích & Đam Mê</h3>
-              <div className="space-y-6">
-                {personalInfo.interests.map((interest: Interest, index: number) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2 }}
-                    className="flex items-start space-x-4"
-                  >
-                    <span className="text-3xl">{interest.icon}</span>
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {interest.title}
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        {interest.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Timeline */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg"
+            className="bg-gray-50/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 shadow-lg border border-gray-100 dark:border-gray-700"
           >
-            <h3 className="text-2xl font-bold text-primary mb-6">Quá Trình Học Tập & Làm Việc</h3>
-            <div className="space-y-8">
-              {personalInfo.timeline.map((item: TimelineItem, index: number) => (
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-3 sm:mb-4 md:mb-6">
+              Thông Tin Cá Nhân
+            </h3>
+            <div className="space-y-2.5 sm:space-y-3 md:space-y-4 text-sm sm:text-base">
+              <InfoRow icon="🎂" label="Ngày sinh" value={personalInfo.dob} />
+              <InfoRow icon="🏫" label="Trường" value={personalInfo.education} />
+              <InfoRow icon="💼" label="Nơi làm việc" value={personalInfo.workplace} />
+              <InfoRow icon="🏠" label="Quê quán" value={personalInfo.hometown} />
+              <InfoRow icon="📧" label="Email" value={personalInfo.email} />
+              <InfoRow icon="📱" label="Điện thoại" value={personalInfo.phone} />
+            </div>
+          </motion.div>
+
+          {/* Sở thích và đam mê */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="bg-gray-50/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 shadow-lg border border-gray-100 dark:border-gray-700"
+          >
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-3 sm:mb-4 md:mb-6">
+              Sở Thích & Đam Mê
+            </h3>
+            <div className="space-y-3 sm:space-y-4 md:space-y-6">
+              {personalInfo.interests.map((interest, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2 }}
-                  className="relative pl-8 border-l-2 border-primary"
+                  className="flex items-start space-x-3 sm:space-x-4"
                 >
-                  <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-primary" />
-                  <div className="space-y-2">
-                    <span className="text-sm text-primary font-semibold">
-                      {item.year}
-                    </span>
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {item.title}
+                  <span className="text-xl sm:text-2xl md:text-3xl flex-shrink-0">
+                    {interest.icon}
+                  </span>
+                  <div>
+                    <h4 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 dark:text-white">
+                      {interest.title}
                     </h4>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {item.company}
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400">
-                      {item.description}
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
+                      {interest.description}
                     </p>
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </Section>
   )
 }
 
-function InfoRow({ icon, label, value }: InfoRowProps) {
+function InfoRow({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
-    <div className="flex items-center space-x-4">
-      <span className="text-xl">{icon}</span>
-      <div>
+    <div className="flex items-center space-x-2 sm:space-x-3">
+      <span className="text-base sm:text-lg md:text-xl flex-shrink-0">{icon}</span>
+      <div className="min-w-0 flex-1">
         <span className="text-gray-500 dark:text-gray-400">{label}:</span>
-        <span className="ml-2 text-gray-900 dark:text-white font-medium">{value}</span>
+        <span className="ml-1 sm:ml-2 text-gray-900 dark:text-white font-medium truncate">
+          {value}
+        </span>
       </div>
     </div>
   )
@@ -706,18 +677,16 @@ function ProjectCard({ project, index, personalInfo }: {
     title: string; 
     description: string; 
     image: string; 
+    video?: string;
     tech: string[];
     link: string;
     github: string;
   };
   index: number;
-  personalInfo: {
-    phone: string;
-    facebook: string;
-    zalo?: string;
-  };
+  personalInfo: PersonalInfo;
 }) {
   const [showContactModal, setShowContactModal] = useState(false)
+  const [showVideoModal, setShowVideoModal] = useState(false)
 
   return (
     <>
@@ -728,13 +697,26 @@ function ProjectCard({ project, index, personalInfo }: {
         transition={{ duration: 0.5, delay: index * 0.2 }}
         className="group relative bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
       >
-        {/* Project Image */}
+        {/* Project Preview */}
         <div className="relative h-48 overflow-hidden">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-          />
+          {project.video ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src={project.video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
 
@@ -762,16 +744,14 @@ function ProjectCard({ project, index, personalInfo }: {
 
           {/* Actions */}
           <div className="flex gap-4 pt-4">
-            <motion.a
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={() => setShowVideoModal(true)}
               className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-10"
             >
               Xem Demo
-            </motion.a>
+            </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -784,11 +764,20 @@ function ProjectCard({ project, index, personalInfo }: {
         </div>
       </motion.div>
 
+      {/* Modals */}
       <ContactModal
         isOpen={showContactModal}
         onClose={() => setShowContactModal(false)}
         personalInfo={personalInfo}
       />
+      
+      {project.video && (
+        <VideoModal
+          isOpen={showVideoModal}
+          onClose={() => setShowVideoModal(false)}
+          videoUrl={project.video}
+        />
+      )}
     </>
   )
 }

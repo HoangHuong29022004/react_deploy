@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bars3Icon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
 
 interface MobileMenuProps {
   isDarkMode: boolean;
@@ -22,11 +23,11 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
   }, [isOpen])
 
   const menuItems = [
-    { href: '#home', label: 'Trang chủ' },
-    { href: '#about', label: 'Giới thiệu' },
-    { href: '#skills', label: 'Kỹ năng' },
-    { href: '#projects', label: 'Dự án' },
-    { href: '#contact', label: 'Liên hệ' }
+    { to: '/', label: 'Trang chủ' },
+    { to: '#about', label: 'Giới thiệu' },
+    { to: '#skills', label: 'Kỹ năng' },
+    { to: '/projects', label: 'Dự Án' },
+    { to: '#contact', label: 'Liên hệ' }
   ]
 
   const handleLinkClick = () => {
@@ -74,14 +75,25 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
 
                 <nav className="flex-1 px-2 py-4 overflow-y-auto">
                   {menuItems.map((item) => (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      onClick={handleLinkClick}
-                      className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
-                    >
-                      {item.label}
-                    </a>
+                    item.to.startsWith('#') ? (
+                      <a
+                        key={item.to}
+                        href={item.to}
+                        onClick={handleLinkClick}
+                        className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        onClick={handleLinkClick}
+                        className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                      >
+                        {item.label}
+                      </Link>
+                    )
                   ))}
                 </nav>
 

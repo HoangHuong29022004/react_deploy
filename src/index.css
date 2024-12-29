@@ -49,3 +49,17 @@ body {
 }
 
 /* Existing animations and other styles... */
+
+/* Add these styles */
+.interactive {
+  position: relative;
+  z-index: 20;
+}
+
+.nav-link {
+  @apply text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors z-20;
+}
+
+.btn {
+  @apply relative z-20;
+}

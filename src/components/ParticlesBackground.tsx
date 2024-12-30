@@ -17,7 +17,7 @@ export function ParticlesBackground() {
         background: {
           opacity: 0
         },
-        fpsLimit: 120,
+        fpsLimit: 60,
         particles: {
           color: {
             value: ["#3b82f6", "#06b6d4", "#6366f1"]
@@ -26,53 +26,42 @@ export function ParticlesBackground() {
             color: "#a5b4fc",
             distance: 150,
             enable: true,
-            opacity: 0.4,
-            width: 1.2
+            opacity: 0.3,
+            width: 1
           },
           collisions: {
-            enable: true,
+            enable: false,
           },
           move: {
             direction: "none",
             enable: true,
             outModes: {
-              default: "bounce"
+              default: "out"
             },
             random: false,
-            speed: 1.2,
+            speed: 0.8,
             straight: false
           },
           number: {
             density: {
               enable: true,
-              area: 800
+              area: 1000
             },
-            value: 80
+            value: 40
           },
           opacity: {
-            value: 0.7,
+            value: 0.5,
             animation: {
-              enable: true,
-              speed: 1,
-              minimumValue: 0.3
+              enable: false
             }
           },
           shape: {
-            type: ["circle", "triangle"],
+            type: "circle",
           },
           size: {
-            value: { min: 3, max: 5 },
+            value: { min: 1, max: 3 },
             animation: {
-              enable: true,
-              speed: 2,
-              minimumValue: 0.5
-            }
-          },
-          twinkle: {
-            particles: {
-              enable: true,
-              frequency: 0.08,
-              opacity: 0.8
+              enable: false
             }
           }
         },
@@ -80,26 +69,25 @@ export function ParticlesBackground() {
           events: {
             onHover: {
               enable: true,
-              mode: "grab"
+              mode: "grab",
+              parallax: {
+                enable: false
+              }
             },
             onClick: {
-              enable: true,
-              mode: "push"
+              enable: false
             }
           },
           modes: {
             grab: {
-              distance: 180,
+              distance: 140,
               links: {
-                opacity: 0.8
+                opacity: 0.5
               }
-            },
-            push: {
-              quantity: 6
             }
           }
         },
-        detectRetina: true
+        detectRetina: false
       }}
     />
   )

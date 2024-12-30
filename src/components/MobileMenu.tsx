@@ -13,12 +13,12 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add('mobile-menu-open')
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.classList.remove('mobile-menu-open')
+      document.body.style.overflow = 'unset'
     }
     return () => {
-      document.body.classList.remove('mobile-menu-open')
+      document.body.style.overflow = 'unset'
     }
   }, [isOpen])
 
@@ -38,7 +38,7 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2 -mr-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+        className="p-2 -mr-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         aria-label="Menu"
       >
         <Bars3Icon className="w-6 h-6 text-gray-600 dark:text-gray-300" />
@@ -52,7 +52,7 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[999]"
             />
 
             <motion.div
@@ -60,14 +60,14 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25 }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-full bg-white dark:bg-gray-900 shadow-xl z-50"
+              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-full bg-white dark:bg-gray-900 shadow-xl z-[1000]"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
                   <span className="text-lg font-semibold text-gray-900 dark:text-white">Menu</span>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     <XMarkIcon className="h-6 w-6" />
                   </button>
@@ -80,7 +80,7 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
                         key={item.to}
                         href={item.to}
                         onClick={handleLinkClick}
-                        className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                        className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
                       >
                         {item.label}
                       </a>
@@ -89,7 +89,7 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
                         key={item.to}
                         to={item.to}
                         onClick={handleLinkClick}
-                        className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                        className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -99,8 +99,11 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
 
                 <div className="p-4 border-t dark:border-gray-800">
                   <button
-                    onClick={onToggleDarkMode}
-                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+                    onClick={() => {
+                      onToggleDarkMode()
+                      setIsOpen(false)
+                    }}
+                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                   >
                     {isDarkMode ? (
                       <>

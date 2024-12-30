@@ -31,6 +31,7 @@ body {
   width: 100%;
   overflow-x: hidden;
   position: relative;
+  isolation: isolate;
 }
 
 /* Container */
@@ -88,4 +89,39 @@ body {
 
 .animate-spin-reverse {
   animation: spin-reverse 15s linear infinite;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Thêm class mới để wrap content */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Cập nhật z-index hierarchy */
+.navbar {
+  z-index: 50;
+}
+
+.mobile-menu {
+  z-index: 1000;
+}
+
+.modal {
+  z-index: 9999;
 }

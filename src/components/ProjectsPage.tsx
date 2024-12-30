@@ -186,11 +186,11 @@ function ProjectCard({ project, onContact }: { project: Project; onContact: () =
           </p>
 
           {/* Technologies */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-2 overflow-x-auto pb-2 hide-scrollbar">
             {project.tech.map((tech, index) => (
               <span
                 key={index}
-                className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+                className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full whitespace-nowrap flex-shrink-0"
               >
                 {tech}
               </span>
@@ -215,7 +215,7 @@ function ProjectCard({ project, onContact }: { project: Project; onContact: () =
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowVideoModal(true)}
-              className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-10"
+              className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-50"
             >
               Xem Demo
             </motion.button>
@@ -223,7 +223,7 @@ function ProjectCard({ project, onContact }: { project: Project; onContact: () =
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onContact}
-              className="flex-1 px-4 py-2 border border-primary text-primary text-center rounded-lg hover:bg-primary hover:text-white transition-colors z-10"
+              className="flex-1 px-4 py-2 border border-primary text-primary text-center rounded-lg hover:bg-primary hover:text-white transition-colors z-50"
             >
               Liên Hệ
             </motion.button>

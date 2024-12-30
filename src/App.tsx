@@ -43,6 +43,10 @@ interface PersonalInfo {
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
+  const onToggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode)
+  }
+
   const personalInfo: PersonalInfo = {
     name: "Phạm Hoàng Hương",
     title: "PHP Developer",
@@ -146,7 +150,7 @@ function App() {
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
-      <div className="bg-white dark:bg-gray-900 transition-colors duration-300 relative">
+      <div className="bg-white dark:bg-gray-900 transition-colors duration-300 relative content-wrapper">
         <ParticlesBackground />
         
         {/* Navbar */}
@@ -175,33 +179,35 @@ function App() {
                   <a href="#skills" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
                     Kỹ năng
                   </a>
-                  <Link 
-                    to="/projects" 
-                    className="nav-link interactive"
-                  >
+                  <Link to="/projects" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
                     Dự Án
                   </Link>
                   <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
                     Liên hệ
                   </a>
-                  <button
-                    onClick={() => setIsDarkMode(!isDarkMode)}
-                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  >
-                    {isDarkMode ? (
-                      <SunIcon className="h-5 w-5 text-yellow-500" />
-                    ) : (
-                      <MoonIcon className="h-5 w-5 text-gray-500" />
-                    )}
-                  </button>
                 </div>
 
-                {/* Mobile Menu */}
-                <div className="md:hidden">
-                  <MobileMenu 
-                    isDarkMode={isDarkMode}
-                    onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-                  />
+                {/* Right Side: Dark Mode Toggle & Mobile Menu */}
+                <div className="flex items-center gap-2 md:gap-4">
+                  {/* Dark mode toggle for desktop */}
+                  <button
+                    onClick={onToggleDarkMode}
+                    className="hidden md:block p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    {isDarkMode ? (
+                      <SunIcon className="h-6 w-6 text-gray-600 dark:text-gray-300" />
+                    ) : (
+                      <MoonIcon className="h-6 w-6 text-gray-600 dark:text-gray-300" />
+                    )}
+                  </button>
+
+                  {/* Mobile Menu */}
+                  <div className="block md:hidden">
+                    <MobileMenu 
+                      isDarkMode={isDarkMode} 
+                      onToggleDarkMode={onToggleDarkMode}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -509,13 +515,13 @@ function App() {
               </Section>
 
               {/* Projects Section */}
-              <Section id="projects" className="relative z-20 py-16 md:py-20">
+              <Section id="projects" className="relative z-20 py-16 md:py-20 mb-20">
                 <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="space-y-12"
+                    className="space-y-12 overflow-hidden"
                   >
                     <div className="text-center space-y-4">
                       <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
@@ -547,7 +553,7 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
                       {featuredProjects.map((project, index) => (
                         <ProjectCard 
                           key={index} 
@@ -664,10 +670,10 @@ function ProjectCard({ project, index, personalInfo }: {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.2 }}
-        className="group relative bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+        className="group relative bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 w-full border border-gray-200 dark:border-gray-800"
       >
         {/* Project Preview */}
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-52 overflow-hidden">
           {project.video ? (
             <video
               autoPlay
@@ -683,28 +689,28 @@ function ProjectCard({ project, index, personalInfo }: {
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         </div>
 
         {/* Project Info */}
         <div className="p-6 space-y-4">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
             {project.title}
           </h3>
           
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
             {project.description}
           </p>
 
           {/* Technologies */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-2 overflow-x-auto pb-2 hide-scrollbar">
             {project.tech.map((tech, index) => (
               <span
                 key={index}
-                className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+                className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full whitespace-nowrap flex-shrink-0"
               >
                 {tech}
               </span>
@@ -717,7 +723,7 @@ function ProjectCard({ project, index, personalInfo }: {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowVideoModal(true)}
-              className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-10"
+              className="flex-1 px-4 py-2.5 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-50 font-medium"
             >
               Xem Demo
             </motion.button>
@@ -725,7 +731,7 @@ function ProjectCard({ project, index, personalInfo }: {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowContactModal(true)}
-              className="flex-1 px-4 py-2 border border-primary text-primary text-center rounded-lg hover:bg-primary hover:text-white transition-colors z-10"
+              className="flex-1 px-4 py-2.5 border-2 border-primary text-primary text-center rounded-lg hover:bg-primary hover:text-white transition-colors z-50 font-medium"
             >
               Liên Hệ
             </motion.button>

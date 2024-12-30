@@ -42,6 +42,7 @@ interface PersonalInfo {
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const [showContactModal, setShowContactModal] = useState(false)
 
   const onToggleDarkMode = () => {
     setIsDarkMode(!isDarkMode)
@@ -182,9 +183,6 @@ function App() {
                   <Link to="/projects" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
                     Dự Án
                   </Link>
-                  <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
-                    Liên hệ
-                  </a>
                 </div>
 
                 {/* Right Side: Dark Mode Toggle & Mobile Menu */}
@@ -206,6 +204,7 @@ function App() {
                     <MobileMenu 
                       isDarkMode={isDarkMode} 
                       onToggleDarkMode={onToggleDarkMode}
+                      personalInfo={personalInfo}
                     />
                   </div>
                 </div>
@@ -285,6 +284,7 @@ function App() {
                             boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)"
                           }}
                           whileTap={{ scale: 0.95 }}
+                          onClick={() => setShowContactModal(true)}
                           className="px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-lg transition-all duration-300 hover:shadow-lg"
                         >
                           Liên hệ ngay
@@ -627,6 +627,13 @@ function App() {
           
           <Route path="/projects" element={<ProjectsPage />} />
         </Routes>
+
+        {/* Contact Modal */}
+        <ContactModal
+          isOpen={showContactModal}
+          onClose={() => setShowContactModal(false)}
+          personalInfo={personalInfo}
+        />
       </div>
     </div>
   )

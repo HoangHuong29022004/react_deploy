@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bars3Icon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { ContactModal } from './ContactModal'
 
 interface MobileMenuProps {
   isDarkMode: boolean;
   onToggleDarkMode: () => void;
+  personalInfo: any;
 }
 
-export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
+export function MobileMenu({ isDarkMode, onToggleDarkMode, personalInfo }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [showContactModal, setShowContactModal] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -95,6 +98,16 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
                       </Link>
                     )
                   ))}
+
+                  <button
+                    onClick={() => {
+                      setShowContactModal(true)
+                      setIsOpen(false)
+                    }}
+                    className="w-full mt-2 px-4 py-3 text-base font-medium bg-primary text-white rounded-md hover:bg-secondary transition-colors"
+                  >
+                    Liên hệ ngay
+                  </button>
                 </nav>
 
                 <div className="p-4 border-t dark:border-gray-800">
@@ -123,6 +136,12 @@ export function MobileMenu({ isDarkMode, onToggleDarkMode }: MobileMenuProps) {
           </>
         )}
       </AnimatePresence>
+
+      <ContactModal
+        isOpen={showContactModal}
+        onClose={() => setShowContactModal(false)}
+        personalInfo={personalInfo}
+      />
     </>
   )
 } 

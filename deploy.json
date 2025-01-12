@@ -1,0 +1,12 @@
+   {
+     "host": "ftp.hhuong.site",
+     "port": 21,
+     "user": "hhuong.site@hhuong.site",
+     "password": "7p(JVpl]TVM%",
+     "localRoot": "dist",
+     "remoteRoot": "/home/vxpeevb/portfolio.hhuong.site",
+     "include": ["*", "**/*"],
+     "exclude": ["node_modules/**", ".git/**", ".DS_Store"],
+     "deleteRemote": false,
+     "forcePasv": true
+   }

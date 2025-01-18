@@ -7,8 +7,8 @@ async function deploy() {
     try {
         await client.access({
             host: "ftp.hhuong.site",
-            user: "hhuong.site@hhuong.site",
-            password: "7p(JVpl]TVM%",
+            user: "hhuong@hhuong.site",
+            password: "hhuonghhuonghhuong",
             port: 21,
             secure: false
         });

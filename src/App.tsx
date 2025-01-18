@@ -123,6 +123,15 @@ function App() {
 
   const featuredProjects = [
     {
+      title: "Website Nhà Thuốc Online",
+      description: "Hệ thống bán thuốc trực tuyến với đội ngũ dược sĩ tư vấn 24/7. Tích hợp đầy đủ tính năng quản lý kho, đơn hàng và tư vấn khách hàng.",
+      image: "/projects/pharmacy.jpg",
+      tech: ["PHP", "MVC", "MySQL", "Bootstrap"],
+      demoUrl: "https://pharmacy-php-mvc.hhuong.site/",
+      link: "#",
+      github: "#"
+    },
+    {
       title: "Website Bán Quần Áo",
       description: "Website thương mại điện tử chuyên về thời trang nữ cao cấp. Tích hợp đầy đủ tính năng quản lý và thanh toán trực tuyến.",
       image: "/projects/fashion.jpg",
@@ -663,6 +672,7 @@ function ProjectCard({ project, index, personalInfo }: {
     tech: string[];
     link: string;
     github: string;
+    demoUrl?: string;
   };
   index: number;
   personalInfo: PersonalInfo;
@@ -729,10 +739,10 @@ function ProjectCard({ project, index, personalInfo }: {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setShowVideoModal(true)}
+              onClick={() => project.demoUrl ? window.open(project.demoUrl, '_blank') : setShowVideoModal(true)}
               className="flex-1 px-4 py-2.5 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-50 font-medium"
             >
-              Xem Demo
+              {project.demoUrl ? 'Truy cập Demo' : 'Xem Demo'}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -753,7 +763,7 @@ function ProjectCard({ project, index, personalInfo }: {
         personalInfo={personalInfo}
       />
       
-      {project.video && (
+      {project.video && !project.demoUrl && (
         <VideoModal
           isOpen={showVideoModal}
           onClose={() => setShowVideoModal(false)}

@@ -69,6 +69,23 @@ const projects: Project[] = [
       "Responsive design"
     ],
     category: 'web'
+  },
+  {
+    id: 4,
+    title: "Website Nhà Thuốc Online",
+    description: "Hệ thống bán thuốc trực tuyến với đội ngũ dược sĩ tư vấn 24/7. Tích hợp đầy đủ tính năng quản lý kho, đơn hàng và tư vấn khách hàng.",
+    image: "/projects/pharmacy.jpg",
+    video: "./videos/pharmacy-demo.mp4",
+    tech: ["PHP", "MVC", "MySQL", "Bootstrap"],
+    features: [
+      "Quản lý sản phẩm thuốc và danh mục",
+      "Tư vấn trực tuyến với dược sĩ",
+      "Giỏ hàng và thanh toán online",
+      "Quản lý đơn hàng và kho thuốc",
+      "Tìm kiếm và lọc thuốc thông minh"
+    ],
+    demoUrl: "https://pharmacy-php-mvc.hhuong.site/",
+    category: 'web'
   }
 ]
 
@@ -214,10 +231,10 @@ function ProjectCard({ project, onContact }: { project: Project; onContact: () =
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setShowVideoModal(true)}
+              onClick={() => project.demoUrl ? window.open(project.demoUrl, '_blank') : setShowVideoModal(true)}
               className="flex-1 px-4 py-2 bg-primary text-white text-center rounded-lg hover:bg-secondary transition-colors z-50"
             >
-              Xem Demo
+              {project.demoUrl ? 'Truy cập Demo' : 'Xem Demo'}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -231,8 +248,8 @@ function ProjectCard({ project, onContact }: { project: Project; onContact: () =
         </div>
       </motion.div>
 
-      {/* Video Modal */}
-      {project.video && (
+      {/* Video Modal - only show for projects with video */}
+      {project.video && !project.demoUrl && (
         <VideoModal
           isOpen={showVideoModal}
           onClose={() => setShowVideoModal(false)}
